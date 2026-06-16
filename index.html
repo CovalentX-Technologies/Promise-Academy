@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Academy | Shape Your Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Brand Identity Color Palette Match (Navy, Blue, Red & White) --- */
+        :root {
+            --bg-main: #def0f79f;         /* Premium clean off-white canvas base */
+            --bg-card: #c8e8f49f;         /* Crisp architectural solid white cards */
+            --accent-blue: #002B7A;     /* Logo Deep Trust Navy Blue */
+            --accent-light: #0080FF;    /* Logo Upper Book Ribbon Sky Blue */
+            --accent-red: #E31E24;      /* Logo Strong Text Accent Red */
+            --accent-hover: #B51217;    /* Deep premium Crimson Red for focus elements */
+            --text-pure: #0F172A;       /* High-contrast charcoal slate for pure text readability */
+            --text-muted: #475569;      /* Smooth slate grey for detailed paragraphs */
+            --border-glow: rgba(0, 43, 122, 0.08);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Reset & Global Styling --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-pure);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        section {
+            padding: 100px 5% 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-blue);
+        }
+
+        .section-title span {
+            color: var(--accent-red);
+        }
+
+        /* --- Top Navigation Bar --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(0, 43, 122, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        /* Logo Structural Alignment Block */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--accent-blue);
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-red);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-enquiry {
+            background: transparent;
+            color: var(--accent-red);
+            border: 2px solid var(--accent-red);
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-enquiry:hover {
+            background-color: var(--accent-red);
+            color: #FFFFFF;
+            box-shadow: 0 4px 15px rgba(227, 30, 36, 0.3);
+        }
+
+        /* Mobile Hamburger Icon */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: var(--accent-blue);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        /* --- Hero Section --- */
+        
+
+        /* --- The Main Hero Container --- */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;         /* Crucial: Act as an anchor for the background layer */
+            padding-top: 120px;
+            background-color: #F1F5F9;  /* Fallback background color */
+            overflow: hidden;           /* Keeps everything cleanly inside the section boundaries */
+        }
+
+        /* --- The Transparent Background Image Layer --- */
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('cover.jpg'); /* 👈 Put your image file name here */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.40;              /* 👈 Less Opacity (0.15 = 15%). Lower it for less visibility, raise it for more */
+            z-index: 1;                 /* Pushes the wallpaper layer to the very back */
+        }
+
+        /* --- The Content Wrapper Box --- */
+        .hero-content {
+            position: relative;
+            z-index: 2;                 /* Forces your text and buttons to sit safely on top of the image */
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-red);
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            font-weight: bold;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-red);
+            color: #FFFFFF;
+            padding: 15px 35px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 14px rgba(227, 30, 36, 0.25);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.35);
+        }
+
+        /* --- About Section --- */
+        #about {
+            background-color: var(--bg-card);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: justify;      /* This aligns both the left and right edges perfectly in a straight line */
+            text-justify: inter-word;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-item i {
+            color: var(--accent-light);
+            font-size: 1.5rem;
+        }
+
+        .about-image {
+        position: relative;
+        border-radius: 24px;
+        height: 100%;
+        min-height: 450px;
+        overflow: hidden; /* Cleans up image corners to match the border radius */
+        box-shadow: 0 20px 50px rgba(0, 43, 122, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        }
+
+        /* New styling rule to make your photo fit like a luxury website */
+        .about-real-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the photo stretches beautifully without distortion */
+            display: block;
+            transition: var(--transition-smooth);
+        }
+
+        .about-image:hover .about-real-img {
+            transform: scale(1.03); /* Gives an elegant, slow zoom effect on hover */
+        }
+/* --- Unique & Attractive Founder Section --- */
+        #founder {
+            background: linear-gradient(135deg, #a6dff39f 0%, #F1F5F9 100%);
+            border-top: 1px solid rgba(0, 43, 122, 0.05);
+            border-bottom: 1px solid rgba(0, 43, 122, 0.05);
+        }
+
+        .founder-container {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .founder-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+/* Luxury frame decorative element */
+        .founder-visual::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--accent-blue);
+            border-radius: 20px;
+            top: 20px;
+            left: -20px;
+            z-index: 1;
+            transition: var(--transition-smooth);
+        }
+
+        .founder-image-wrapper {
+            position: relative;
+            z-index: 2;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            background-color: #E2E8F0;
+            width: 100%;
+            aspect-ratio: 4/5;
+        }
+
+        .founder-img-actual {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition-smooth);
+        }
+
+        .founder-visual:hover::before {
+            transform: translate(8px, -8px);
+            border-color: var(--accent-red);
+        }
+
+        .founder-visual:hover .founder-img-actual {
+            transform: scale(1.04);
+        }
+
+        .founder-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -10px;
+            background: var(--accent-red);
+            color: #FFFFFF;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.2);
+            z-index: 3;
+        }
+
+        .founder-bio h3 {
+            font-size: 2.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .founder-subtitle {
+            font-size: 1rem;
+            color: var(--accent-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .founder-subtitle::after {
+            content: '';
+            height: 2px;
+            width: 50px;
+            background-color: var(--accent-light);
+            display: inline-block;
+        }
+
+        .founder-quote-box {
+            position: relative;
+            background: #FFFFFF;
+            border-left: 5px solid var(--accent-blue);
+            padding: 25px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 43, 122, 0.03);
+        }
+
+        .founder-quote-box i {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3rem;
+            color: rgba(0, 43, 122, 0.04);
+        }
+
+        .founder-quote-box p {
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--text-pure);
+            line-height: 1.7;
+        }
+
+        .founder-narrative p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-align: justify;      /* This aligns both the left and right edges perfectly in a straight line */
+            text-justify: inter-word;
+        }
+
+        .founder-footer-meta {
+            margin-top: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(0, 43, 122, 0.1);
+            padding-top: 25px;
+        }
+
+        .founder-creds h5 {
+            font-size: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .founder-creds p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .founder-signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+        /* --- Courses Section --- */
+        #courses {
+            background-color: var(--bg-main);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            border-radius: 10px;
+            padding: 35px 25px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent-light);
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 43, 122, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 43, 122, 0.06);
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .course-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-blue);
+        }
+
+        .course-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-align: justify;      /* This aligns both the left and right edges perfectly in a straight line */
+            text-justify: inter-word;
+        }
+
+        /* --- Faculty Section --- */
+        #faculty {
+            background-color: var(--bg-card);
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .faculty-card {
+            background-color: var(--bg-main);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 43, 122, 0.06);
+            text-align: center;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .faculty-card:hover {
+            border-color: var(--accent-light);
+            box-shadow: 0 10px 25px rgba(0, 128, 255, 0.1);
+        }
+
+        .faculty-img-container {
+            width: 100%;
+            height: 250px;
+            background-color: #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            border-bottom: 2px solid rgba(0, 43, 122, 0.05);
+            position: relative;
+        }
+
+        .faculty-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }   
+
+        .faculty-info {
+            padding: 25px 20px;
+            background-color: #FFFFFF;
+        }
+
+        .faculty-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--accent-blue);
+        }
+
+        .faculty-designation {
+            color: var(--accent-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .faculty-exp {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 43, 122, 0.06);
+            padding-top: 12px;
+        }
+
+        /* Disables blue highlighting and dragging artifacts across all image files */
+        img {
+        user-select: none;           /* Prevents highlighting or selecting the image */
+        -webkit-user-drag: none;     /* Disables dragging in WebKit browsers (Chrome, Safari, Edge) */
+        pointer-events: none;        /* Optional: Makes the image completely invisible to mouse clicks/drags */
+        }
+
+        /* --- Gallery Section (Optimized for Images & Video Assets) --- */
+        #gallery {
+            background-color: var(--bg-main);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 220px;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(0, 43, 122, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+        }
+
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0, 42, 122, 0.85));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 2;
+            pointer-events: none; /* Keeps native HTML video controls interactive underneath */
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: #FFFFFF;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gallery-item:hover .gallery-overlay span {
+            transform: translateY(0);
+        }
+
+        /* --- Contact Us Section --- */
+        #contact {
+            background-color: var(--bg-card);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: var(--bg-main);
+            border: 1px solid rgba(0, 43, 122, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            color: var(--text-pure);
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-light);
+            box-shadow: 0 0 10px rgba(0, 128, 255, 0.15);
+        }
+
+        .contact-info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: var(--bg-main);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 43, 122, 0.05);
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: var(--accent-light);
+        }
+
+        .info-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--accent-blue);
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Premium Footer --- */
+        footer {
+            background-color: #0B132B; /* Contrastive deep dark block for the structural foot */
+            color: #FFFFFF;
+            border-top: 4px solid var(--accent-red);
+            padding: 60px 5% 30px 5%;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+        }
+
+        .footer-about h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+
+        .footer-about h3 span {
+            color: var(--accent-red);
+        }
+
+        .footer-about p {
+            color: #94A3B8;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #F1F5F9;
+        }
+
+        .footer-links ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: #94A3B8;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+            padding-left: 5px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #94A3B8;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--accent-light);
+            margin-top: 4px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-red);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            border-color: var(--accent-red);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            color: #64748B;
+            font-size: 0.85rem;
+        }
+        .footer-bottom p {
+        color: #FFFFFF;         /* Forces the paragraph text to solid white */
+        font-size: 0.85rem;     /* Sets your font size */
+        margin: 5px 0;          /* Adds clean spacing if you have multiple lines */
+        font-weight: 400;       /* Optional: keeps text clean and elegant */
+     }
+
+        /* 3. OPTIONAL: Targets the span inside the p tag if you want it identical */
+        .footer-bottom p span {
+            color: #FFFFFF;
+            font-weight: 600;       /* Keeps your brand weight thick but color white */
+        }
+
+        /* --- 100% Mobile & Tablet Optimization --- */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 70px 6% 60px 6%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background-color: var(--bg-card);
+                border-left: 2px solid rgba(0, 43, 122, 0.1);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                transition: var(--transition-smooth);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-container, .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-image {
+                min-height: 250px;
+            }
+            
+            .logo-img {
+                height: 38px;
+            }
+            
+            .logo {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                width: 100%;
+            }
+
+        }
+
+    /* Container Panel for Floating Elements */
+    .sticky-contact-panel {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%); /* Centers the panel perfectly on the vertical axis */
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 99999; /* Higher priority depth layer to float over all components */
+    }
+
+    /* Base Interactive Button Settings */
+    .sticky-contact-panel .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px;
+        border-radius: 50px; /* Elegant circular/pill shapes */
+        color: #FFFFFF !important;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        min-width: 50px;
+        height: 50px;
+    }
+
+    /* Brand Background Colors */
+    .sticky-contact-panel .call-btn {
+        background-color: #EF4444; /* Clean premium Red for call alert actions */
+    }
+
+    .sticky-contact-panel .whatsapp-btn {
+        background-color: #25D366; /* Authentic WhatsApp Green */
+    }
+
+    /* Hide the written text label on desktop until hover to keep UI minimal */
+    .sticky-contact-panel .btn-label {
+        display: none;
+        white-space: nowrap;
+    }
+
+    .sticky-contact-panel .action-btn i {
+        font-size: 1.3rem;
+    }
+
+    /* --- Desktop Micro-Interactions --- */
+    @media (min-width: 769px) {
+        .sticky-contact-panel .action-btn:hover {
+            padding: 14px 24px;
+            border-radius: 30px;
+            transform: scale(1.05);
+        }
+        
+        /* Reveal text label smoothly on hover */
+        .sticky-contact-panel .action-btn:hover .btn-label {
+            display: inline-block;
+        }
+    }
+
+/* --- Mobile Adaptive Optimization --- */
+    @media (max-width: 768px) {
+        .sticky-contact-panel {
+            right: 12px;
+            top: auto;
+            bottom: 30px; /* Shifts down seamlessly on phones out of the user's reading line */
+            transform: none;
+            gap: 8px;
+        }
+
+        /* Convert buttons to perfectly sized tap zones for mobile devices */
+        .sticky-contact-panel .action-btn {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .sticky-contact-panel .action-btn i {
+            font-size: 1.25rem;
+        }
+        
+        /* Always keep text labels hidden on mobile to prevent layout clipping */
+        .sticky-contact-panel .btn-label {
+            display: none !important;
+        }
+    }
+
+
+    /* --- Welcoming Popup Form Styles --- */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 23, 42, 0.6); /* Translucent dark slate overlay */
+        backdrop-filter: blur(8px);               /* Classy glass blur effect for background */
+        z-index: 100000;                          /* Floats above sticky contact keys and navbar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    /* Turns on the popup visibility via JavaScript */
+    .popup-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .popup-card {
+        background-color: var(--bg-card);
+        width: 90%;
+        max-width: 480px;
+        padding: 40px 30px;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 43, 122, 0.25);
+        position: relative;
+        transform: scale(0.85);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .popup-overlay.show .popup-card {
+        transform: scale(1);
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        font-size: 2rem;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: var(--transition-smooth);
+    }
+
+    .popup-close:hover {
+        color: var(--accent-red);
+    }
+
+    .popup-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .popup-header h3 {
+        font-size: 1.6rem;
+        color: var(--accent-blue);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .popup-header h3 span {
+        color: var(--accent-red);
+    }
+
+    .popup-header p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .popup-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* Matches your existing elegant inputs */
+    .popup-select {
+        width: 100%;
+        background-color: var(--bg-main);
+        border: 1px solid rgba(0, 43, 122, 0.1);
+        padding: 15px;
+        border-radius: 6px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        outline: none;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+    }
+
+    .popup-select:focus {
+        border-color: var(--accent-light);
+        box-shadow: 0 0 10px rgba(0, 128, 255, 0.15);
+    }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="promiselogo.jpeg" alt="Promise Academy Logo" class="logo-img">
+            <div class="logo">PROMISE <span>ACADEMY</span></div>
+        </div>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#founder" class="nav-link">Founder Message</a></li>
+            <li><a href="#courses" class="nav-link">Our Courses</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#contact" class="nav-link">Contact Us</a></li>
+            <li><button class="btn-enquiry" onclick="scrollToContact()">Enquiry Now</button></li>
+        </ul>
+
+        <div class="menu-toggle" id="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content">
+            <h1>Elevate Your Potential With <br><span>Promise Academy</span></h1>
+            <p>Empowering minds with comprehensive technical expertise, state-of-the-art infrastructure, and dedicated mentor guidance.</p>
+            <button class="btn-primary" onclick="scrollToContact()">Explore Opportunities</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">Who <span>We Are</span></h2>
+        <div class="about-container">
+            <div class="about-text">
+                <h3>Committed to Academic & Professional Growth</h3>
+                <p>Promise Academy is a trusted learning institute dedicated to helping students from Class 1 to Class 12 achieve academic success through structured teaching, strong fundamentals, and practical learning experiences.</p>  
+                <p>We believe that education should go beyond textbooks, empowering students to understand concepts, develop critical thinking skills, and confidently apply their knowledge in real-world situations.</p>
+                <p>Our experienced faculty provides personalized attention and comprehensive guidance across core subjects, ensuring that every student builds a strong academic foundation while developing problem-solving, analytical, and communication skills.</p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Industry Curriculums</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span>Modern Systems Architecture</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Expert Faculty Panel</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span>Career-Driven Results</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="class.jpeg" alt="Promise Academy Campus" class="about-real-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- --- New Attractive Founder Section --- -->
+    <section id="founder">
+        <h2 class="section-title">Visionary <span>Leadership</span></h2>
+        <div class="founder-container">
+            <div class="founder-visual">
+                <div class="founder-image-wrapper">
+                    <img src="founder.jpeg" alt="Founder & Managing Director Dr. Gauri Kumar Chaubey" class="founder-img-actual">
+                </div>
+                <div class="founder-badge">13+ Years Exp</div>
+            </div>
+            <div class="founder-bio">
+                <h3>Dr. Gauri Kumar Chaubey</h3>
+                <div class="founder-subtitle">Founder & Managing Director</div>
+                
+                <div class="founder-quote-box">
+                    <i class="fa-solid fa-quote-right"></i>
+                    <p>"Education is not just about memorizing facts; it is about training the mind to think logically, act ethically, and build solutions that push society forward."</p>
+                </div>
+
+                <div class="founder-narrative">
+                    <p>Welcome to Promise Academy. Having earned an M.Sc. in Biotechnology and a B.Ed. from the University of Mumbai, along with experience as a Research Associate at PGI Chandigarh, I have witnessed the transformative power of knowledge. Through this institution, I am committed to nurturing young minds, strengthening their concepts, and preparing them to confidently face future academic and professional challenges</p>
+                    <p>Our curriculum is designed to guide students systematically—from basic foundational steps up to competitive engineering preparation. We promise complete mentorship, dedicated tracking, and a space equipped to turn potential into definitive professional victory.</p>
+                </div>
+
+                <div class="founder-footer-meta">
+                    <div class="founder-creds">
+                        <h5>Dr. Gauri Kumar Chaubey</h5>
+                        <p>MSC Biotechnology (Dehradun)</p>
+                        <p>B.Ed (University of Mumbai)</p>
+                        <p>Research Associate, PGI Chandigarh</p>
+                    </div>
+                    <div class="founder-signature">G.K. Chaubey</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses">
+        <h2 class="section-title">Our <span>Courses</span></h2>
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-code"></i></div>
+                <h3>School Section(Class 1st to 8th)</h3>
+                
+                <p>We focus on developing core concepts in Mathematics, Science, English, and other key subjects, helping students build confidence and a lifelong love for learning.</p>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <h3>Class 9</h3>
+                <p>Comprehensive coaching designed to strengthen subject knowledge, improve performance, and prepare students for school and board examinations.</p>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>Class 10</h3>
+                <p>Program is designed to help students build strong subject knowledge, improve problem-solving skills, and achieve outstanding results in board examinations.</p>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>FYJC (NEET,JEE)</h3>
+                <p>Specialized academic support for higher secondary students with in-depth subject understanding, exam strategies, and preparation for future educational goals.</p>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>SYJC (NEET,JEE)</h3>
+                <p>Program is designed to help students excel in their school curriculum while building a strong foundation for competitive exams such as NEET and JEE.</p>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>Personality Development & English Speaking</h3>
+                <p>Program is designed to help students develop effective communication skills, self-confidence, leadership qualities, and a positive personality.</p>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>YOGA</h3>
+                <p>Our Yoga Program is designed to promote physical fitness, mental well-being, emotional balance, and overall health.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="gallery">
+        <h2 class="section-title">Academy <span>Gallery</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <video src="vid1.mp4" autoplay loop muted playsinline controls></video>
+                <div class="gallery-overlay">
+                    <span><i class="fa-solid fa-circle-play"></i> Video Tour</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <video src="vid2.mp4" autoplay loop muted playsinline controls></video>
+                <div class="gallery-overlay">
+                    <span><i class="fa-solid fa-video"></i> Lab Session</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="acad1.jpeg" alt="Seminar Session">
+                <div class="gallery-overlay"><span>Seminar Session</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="project2.jpeg" alt="Computer Education Training">
+                <div class="gallery-overlay"><span>Computer Training</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="acad3.jpeg" alt="Experienced Faculty" style="height: 100%; object-fit: cover; object-position: left top;">
+                <div class="gallery-overlay"><span>Experienced Faculty</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="acad4.jpeg" alt="Science Lab Activity">
+                <div class="gallery-overlay"><span>Science Lab Activity</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="acad5.jpeg" alt="Biology Session" style="height: 100%; object-fit: cover; object-position: top;">
+                <div class="gallery-overlay"><span>Biology Session</span></div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="acad8.jpeg" alt="Interactive Classroom">
+                <div class="gallery-overlay"><span>Interactive Classroom</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="acad9.jpeg" alt="Interactive Classroom">
+                <div class="gallery-overlay"><span>Interactive Classroom</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="contact-container">
+            <form class="contact-form" id="enquiryForm">
+                <div class="form-group">
+                    <input type="text" id="userName" placeholder="Your Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="userEmail" placeholder="Your Active Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="userPhone" placeholder="Your Contact Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" id="userMsg" placeholder="Type your detailed academic inquiry here..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Inquiry</button>
+            </form>
+            
+            <div class="contact-info-cards">
+                <div class="info-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Gala No-9, Vivan Building, Near Ram Mandir Railway Station, Mumbai-400031</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h4>Official Support Email</h4>
+                        <p>promiseacademy24@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>Contact Desk</h4>
+                        <p>+91 90826 70934 / 97691 16995 </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-about">
+              <img src="promiselogo.jpeg" alt="Promise Academy Logo" class="logo-img">
+                <h3>PROMISE <span>ACADEMY</span></h3>
+                <p>Join Promise Academy for Class 1–12 coaching, NEET & JEE preparation, SYJC Science, English Speaking, Personality Development, and Yoga classes designed for academic excellence and overall growth.</p>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/promisee_academyy?igsh=YXo2Z2N3aXdxcnlk"><i class="fa-brands fa-instagram"></i></a>
+                    
+                    <!-- Secure, responsive WhatsApp direct-communication anchor -->
+                    <a href="https://wa.me/919082670934?text=Hello!%20I%20am%20interested%20in%20Promise%20Academy%20courses." 
+                    target="_blank" class="whatsapp-btn" rel="noopener noreferrer">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>QUICK LINKS</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#courses">Our Courses</a></li>
+                    <li><a href="#faculty">Faculty</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Details</h4>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Gala No-9, Vivan Building, Near Ram Mandir Railway Station, Mumbai-400031</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>promiseacademy24@gmail.com</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+91 90826 70934</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Promise Academy. All Rights Reserved.<i> Powered by CovalentX Technologies</i></p>
+        </div>
+    </footer>
+
+
+    <!-- Global Sticky Quick-Contact Actions -->
+    <div class="sticky-contact-panel">
+        <!-- Call Action Button -->
+        <a href="tel:+919082670934" class="action-btn call-btn" aria-label="Call Now">
+            <i class="fa-solid fa-phone"></i>
+            <span class="btn-label">Call Now</span>
+        </a>
+        
+        <!-- WhatsApp Action Button -->
+        <a href="https://wa.me/919082670934?text=Hello!%20I%20am%20interested%20in%20enquiring%20about%20Promise%20Academy%20courses." 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="action-btn whatsapp-btn" 
+        aria-label="WhatsApp Now">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="btn-label">WhatsApp</span>
+        </a>
+    </div>
+    
+
+    <!-- --- Automatic Welcome Enquiry Popup Modal --- -->
+    <div class="popup-overlay" id="welcomePopup">
+        <div class="popup-card">
+            <button class="popup-close" id="closePopup">&times;</button>
+            <div class="popup-header">
+                <h3>PROMISE <span>ACADEMY</span></h3>
+                <p>Shape Your Future Today! Fill out this form and our counselors will reach out to you shortly.</p>
+            </div>
+            <form class="popup-form" id="popupEnquiryForm">
+                <div class="form-group">
+                    <input type="text" id="studentName" placeholder="Student Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="tel" id="studentPhone" placeholder="Mobile Number" required>
+                </div>
+                <div class="form-group">
+                    <select class="popup-select" id="studentCourse" required>
+                        <option value="" disabled selected>Select Your Course / Class</option>
+                        <option value="School Section (Class 1st to 8th)">School Section (Class 1st to 8th)</option>
+                        <option value="Class 9th">Class 9th</option>
+                        <option value="Class 10th">Class 10th</option>
+                        <option value="FYJC (NEET/JEE)">FYJC (NEET/JEE)</option>
+                        <option value="SYJC (NEET/JEE)">SYJC (NEET/JEE)</option>
+                        <option value="English Speaking & Personality Dev.">English Speaking & Personality Dev.</option>
+                        <option value="Yoga">Yoga</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Submit Enquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // Smooth Responsive Hamburger Toggle Logic
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileMenu.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        const spans = mobileMenu.querySelectorAll('span');
+        spans[0].style.transform = navMenu.classList.contains('active') ? 'rotate(45deg) translate(6px, 6px)' : 'none';
+        spans[1].style.opacity = navMenu.classList.contains('active') ? '0' : '1';
+        spans[2].style.transform = navMenu.classList.contains('active') ? 'rotate(-45deg) translate(6px, -6px)' : 'none';
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            const spans = mobileMenu.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        });
+    });
+
+    // SINGLE DEFINITION: Clean, Offset-Aware Smooth Scroll Function
+    function scrollToContact() {
+        const target = document.getElementById('contact');
+        if (target) {
+            // Dynamically calculates the exact height of your fixed luxury navbar
+            const navbar = document.querySelector('.navbar');
+            const navbarHeight = navbar ? navbar.offsetHeight : 0;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        } else {
+            console.error("Target element with id='contact' was not found in the HTML structure.");
+        }
+    }
+
+    // Active Navigation Highlighting on Scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (window.pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // --- Premium WhatsApp Lead Delivery Integration ---
+    const enquiryForm = document.getElementById('enquiryForm');
+    if (enquiryForm) {
+        enquiryForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Extracting raw strings cleanly
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const phone = document.getElementById('userPhone').value;
+            const msg = document.getElementById('userMsg').value;
+            
+            // Build text format for instantly legible business notification
+            const whatsappText = `*📚 NEW ADMISSION ENQUIRY - PROMISE ACADEMY*%0A%0A` +
+                                 `• *Name:* ${encodeURIComponent(name)}%0A` +
+                                 `• *Email:* ${encodeURIComponent(email)}%0A` +
+                                 `• *Phone:* ${encodeURIComponent(phone)}%0A` +
+                                 `• *Message:* ${encodeURIComponent(msg)}`;
+            
+            // Set your target operational phone number here
+            const targetWhatsAppNumber = "919082670934"; 
+            
+            // Open communication deep link securely
+            window.open(`https://wa.me/${targetWhatsAppNumber}?text=${whatsappText}`, '_blank');
+            
+            // Clear inputs
+            this.reset();
+        });
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const welcomePopup = document.getElementById("welcomePopup");
+        const closePopup = document.getElementById("closePopup");
+        const popupForm = document.getElementById("popupEnquiryForm");
+
+        // Automatically displays the popup overlay 1 second after page loads completely
+        setTimeout(() => {
+            welcomePopup.classList.add("show");
+        }, 1000);
+
+        // Closes the popup when hitting the 'X' button
+        closePopup.addEventListener("click", () => {
+            welcomePopup.classList.remove("show");
+        });
+
+        // Closes the popup if the user clicks anywhere outside the form card area
+        welcomePopup.addEventListener("click", (e) => {
+            if (e.target === welcomePopup) {
+                welcomePopup.classList.remove("show");
+            }
+        });
+
+        // Handle Form Submission smoothly and pass structured data directly to WhatsApp
+        popupForm.addEventListener("submit", (e) => {
+            e.preventDefault(); // Prevents the browser from reloading the page or displaying a blank loading screen
+
+            // 1. Gather values entered by the student
+            const name = document.getElementById("studentName").value.trim();
+            const phone = document.getElementById("studentPhone").value.trim();
+            const course = document.getElementById("studentCourse").value;
+
+            // 2. Set your destination WhatsApp Number (Include your country code, e.g., 91 for India, no spaces/plus signs)
+            const whatsappNumber = "919082809261"; 
+
+            // 3. Format the message elegantly with clear spacing and clean styling details
+            const messageText = `Hello Promise Academy Team,\n\n` +
+                                `I would like to submit an admission enquiry:\n` +
+                                `*Name:* ${name}\n` +
+                                `*Phone:* ${phone}\n` +
+                                `*Course/Class:* ${course}\n\n` +
+                                `Please share the batch details and fee structure.`;
+
+            // 4. Encode the string text to safely convert characters like spaces, symbols, and commas for standard URI links
+            const encodedMessage = encodeURIComponent(messageText);
+
+            // 5. Hide the popup card cleanly in the background right before swapping views
+            welcomePopup.classList.remove("show");
+
+            // 6. Instantly send the user directly into their application workspace
+            window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+        });
+    });
+
+</script>
+</body>
+</html>
