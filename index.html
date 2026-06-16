@@ -1171,6 +1171,103 @@
         box-shadow: 0 0 10px rgba(0, 128, 255, 0.15);
     }
 
+
+    /* --- Desktop Default Layout Guard (Ensures desktop stays pristine) --- */
+.founder-section {
+    padding: 60px 0;
+    background-color: #f4f9ff;
+}
+
+.founder-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Keeps desktop side-by-side as requested */
+    gap: 50px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 📱 Complete Mobile Responsive Overhaul (Max Width: 768px) --- */
+@media (max-width: 768px) {
+    /* 1. Force container to stack vertically instead of side-by-side */
+    .founder-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+        padding: 0 20px !important;
+    }
+
+    /* 2. Bring the image back into view and center it beautifully */
+    .founder-visual {
+        position: relative;
+        width: 100% !important;
+        max-width: 340px; /* Limits size on mobile so it doesn't look giant */
+        margin: 0 auto !important; /* Centers the image frame */
+        display: block !important;
+    }
+
+    /* Prevent the blue accent outline frame from jumping out of bounds */
+    .founder-visual::before {
+        width: 100% !important;
+        height: 100% !important;
+        left: -10px !important;
+        top: 10px !important;
+    }
+
+    /* Make the portrait image scale naturally without breaking */
+    .founder-visual img {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 16px !important;
+        display: block;
+    }
+
+    /* 3. Keep the "13+ Years Exp" badge perfectly locked inside the photo bounds */
+    .experience-badge, .founder-visual div[style*="position: absolute"] {
+        bottom: 15px !important;
+        right: 15px !important;
+        left: auto !important; /* Fixes the horizontal cutoff */
+        width: auto !important;
+        white-space: nowrap;
+    }
+
+    /* 4. Fix typography and alignment for the biography section */
+    .founder-bio {
+        text-align: center !important; /* Centers headings on mobile for elegance */
+        width: 100% !important;
+    }
+
+    .founder-bio h2 {
+        font-size: 2rem !important; /* Keeps "VISIONARY LEADERSHIP" scaling cleanly */
+        text-align: center;
+    }
+
+    .founder-bio h3 {
+        font-size: 1.6rem !important; /* Stops the name from breaking mid-word */
+        line-height: 1.3;
+    }
+
+    /* Center the blockquote line and its quotation marks */
+    .quote-box, .founder-bio blockquote {
+        text-align: left !important;
+        padding: 15px 20px !important;
+        margin: 20px 0 !important;
+    }
+
+    /* 5. Fix the bottom Meta information (Signature and Text Credentials) */
+    .founder-meta {
+        flex-direction: column !important; /* Stacks credentials and signature vertically */
+        gap: 15px !important;
+        text-align: center !important;
+        align-items: center !important;
+    }
+    
+    .signature-container img, .founder-meta img {
+        margin: 0 auto !important; /* Centers the signature graphic */
+    }
+}
+
     </style>
 </head>
 <body>
